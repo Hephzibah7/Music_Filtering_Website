@@ -1,0 +1,25 @@
+body {
+	background: #efe5d0;
+	margin: 20px;
+}
+
+form {
+	display: table;
+	padding: 10px;
+	border: thin dotted #7e7e7e;
+	background-color: #e1ceb8;
+}
+
+div.tableRow {
+	display: table-row;
+}
+
+div.tableRow p {
+	display: table-cell;
+	vertical-align: top;
+	padding: 3px;
+}
+
+p.heading {
+	font-weight: bold;
+}

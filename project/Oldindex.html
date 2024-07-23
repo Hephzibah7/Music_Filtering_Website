@@ -1,0 +1,70 @@
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Music Query Filtering</title>
+  <link rel="stylesheet" href="dec.css" />
+</head>
+
+<body>
+
+  <div class="container">
+    <h2 class="logo2"><span class="letter">S</span>ar<span class="letter">G</span>am</h2>
+    <!-- <div class="cont-img"><img src="image2.jpg"></div> -->
+    <div class="sub-cont">
+      <h2 class="logo"><span class="letter">S</span>ar<span class="letter">G</span>am</h2>
+      <h1 class="title">MUSIC QUERY FILTERING</h1>
+      <form id="form" method="post" action="processUpdate.php" onsubmit="return validateForm()">
+        <div class="search-icon"><img src="search.svg"></div>
+        <textarea id="details" name="details" rows="2" cols="100" required></textarea>
+        <br /><br />
+
+        <button type="submit" class="btn btn-primary submit-button">Search</button>
+
+
+
+      </form>
+
+      <!-- Guidelines Form -->
+    </div>
+    <div id="guidelinesForm" class="hidden">
+      <button id="closeButton">&times;</button>
+      <h2>Query Guidelines</h2>
+      <p>Please enter your query in the following format:</p>
+      <p>&rarr; The query should be written in attribute-value pair(attribute = value)</p>
+      <p>&rarr; Each attribute should be in double quotes</p>
+      <p>&rarr; The corresponding value should also be in double quotes</p>
+      <p>&rarr; All the attributes should be written in block letters</p>
+      <p>&rarr; Use spaces between each object(word, operator, etc)</p>
+      <p>&rarr; There should be at least one conjunction(and, or, not) between two attributes</p>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    function validateForm() {
+      // Perform validation here
+      var input = document.getElementById('details').value;
+      // Check if input contains the word "and"
+      /*if ((input.indexOf(' and ') === -1) && (input.indexOf(' or ') === -1) && (input.indexOf(' not ') === -1)) {
+        alert('There should be atleast one conjunction in the query.');
+        return false; // Prevent form submission
+      }*/
+      // Validation passed, allow form submission
+      return true;
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      // Wait for 5 seconds before showing the guidelines form
+      setTimeout(function () {
+        document.getElementById('guidelinesForm').classList.add('show');
+      }, 4000);
+      document.getElementById('closeButton').addEventListener('click', function () {
+        document.getElementById('guidelinesForm').classList.remove('show');
+      });
+    });
+
+  </script>
+</body>
+
+</html>

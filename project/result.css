@@ -1,0 +1,44 @@
+body {
+	background: #efe5d0;
+	margin: 20px;
+	font-family:      Georgia, "Times New Roman", Times, serif;
+}
+
+form {
+	display: table;
+	padding: 10px;
+	border: thin dotted #7e7e7e;
+	background-color: #e1ceb8;
+}
+
+div.tableRow {
+	display: table-row;
+}
+
+div.tableRow p {
+	display: table-cell;
+	vertical-align: top;
+	padding: 3px;
+}
+
+p.heading {
+	font-weight: bold;
+}
+
+.result {
+	display: table;
+	padding: 10px;
+	border: thin dotted #7e7e7e;
+	background-color: #e1ceb8;
+}
+
+
+
+div.pagelinks p {
+	display: table-cell;
+	vertical-align: top;
+	padding: 5px;
+	border: thin solid #7e7e7e;
+	background-color: #e1ceb8;
+}
+

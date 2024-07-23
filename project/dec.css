@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Tilt+Neon&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    background-image: url("https://wallpapercave.com/wp/TcRobod.jpg");
+    background-size: cover;
+    /* background-repeat: no-repeat; */
+    height: 100vh;
+    width: 100vw;
+    box-shadow: 30px 30px 30px #888888;
+
+
+}
+
+.sub-cont {
+    position: absolute;
+    left: 180px;
+    font-weight: 900;
+    height: 400px;
+    top: 170px;
+    width: 1200px;
+    color: rgb(5, 5, 5);
+    justify-content: center;
+    text-align: center;
+    background-color: rgba(231, 228, 228, 0.5);
+    /* Red color with 50% transparency */
+    border-radius: 80px;
+
+}
+
+.logo {
+    padding: 20px;
+    position: relative;
+    top: 10px;
+    font-size: 35px;
+    font-family: "Philosopher";
+}
+
+.logo2 {
+    padding: 20px;
+    color: white;
+    font-size: 25px;
+    font-weight: bolder;
+    font-family: "Philosopher";
+}
+
+.title {
+    font-size: 90px;
+    position: relative;
+    left: -5px;
+    top: 10px;
+    font-family: "Tilt Neon";
+
+
+}
+
+.submit-button {
+    width: 130px;
+    height: 40px;
+    border-radius: 15px;
+    font-weight: bolder;
+    color: rgb(244, 244, 243);
+    background-color: rgb(4, 4, 4);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#details {
+    border-radius: 2px;
+
+
+}
+
+.validation {
+    background-color: black;
+    position: relative;
+}
+
+/* guidelines styles page */
+/* .hidden {
+    display: none;
+} */
+
+#guidelinesForm {
+    position: fixed;
+    top: -100%;
+    right: 0;
+    width: 40%;
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 30px;
+    box-shadow: 0 2px 5px rgba(255, 253, 253, 0.973);
+    transition: top 0.5s ease-in-out;
+    z-index: 100;
+}
+
+#guidelinesForm h2{
+    text-align: center;
+}
+#guidelinesForm p{
+    padding-top: 0.5rem;
+    text-align: left;
+}
+
+#guidelinesForm.show {
+    top: 0;
+}
+
+#closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    font-size: 40px;
+    color: #333;
+  }
+  
+  #closeButton:hover {
+    color: #ff0000; /* Change color on hover if desired */
+  }
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.sub-cont {
+    animation: fadeIn 0.9s ease forwards;
+    z-index: 10;
+}
+
+.search-icon img {
+    position: relative;
+    top: 31px;
+    left: 361px;
+    background-color: rgb(249, 135, 4);
+    width: 32px;
+    height: 30px;
+}
+
+.letter {
+    color: rgb(249, 135, 4);
+
+}

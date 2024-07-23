@@ -1,0 +1,64 @@
+.img1
+{
+    width:100vw;
+    height:100vh;
+    filter: blur(27px);
+   
+}
+.glass{
+    position: absolute;
+    top:28.5%;
+    left:26%;
+    width:50vw;
+    height:50vh;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border:2px solid #800060;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+}
+
+.glass:hover {
+
+    box-shadow: 0 0 150px 0 #800060;
+}
+
+textarea{
+    position: absolute;
+    left:20%;
+    top:45%;
+    font-size: 25px;
+     border:#800060 2px solid;;;
+    height:60px;
+    border-radius: 20px;;
+    text-align: center; 
+    background-color: transparent;
+}
+
+p{
+    position:absolute;
+    color:azure;
+    left:21%;
+    top:2%;
+    font-size: 70px;
+    font-weight: bold;
+
+    animation: float 3.5s infinite ease-in-out;
+  }
+  
+  @keyframes float {
+      50% {
+          top: 40px;
+      }    
+      100% { 
+          top: 2%;
+      }
+  }
+
+::placeholder{
+    color:azure;
+    font-family: 'Times New Roman', Times, serif;
+    padding-top:12px;
+}

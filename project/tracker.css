@@ -1,0 +1,253 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+*{
+    margin: 0 0;
+    padding: 0 0;
+}
+
+body{
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(60deg, #29323c 0%, #485563 100%);
+    height: 100vh;
+    font-family: "Poppins", sans-serif;
+    display: grid;
+}
+
+.controlBtn {
+    display:flex;
+}
+.VolumeContainer{
+    display: flex;
+}
+#notes-container{
+  background-color: antiquewhite;
+  height: auto;
+  width: 45vw;
+  border-radius: 20px;
+  padding: 10px 20px;
+}
+.note {
+  display: inline-block;
+  margin: 5px;
+  font-family: 'ome_bhatkhande_hindi';
+  font-size: 40px;
+  color: rgb(48, 47, 47);
+}
+
+
+
+.note.active {
+  color: green;
+}
+
+h1{
+    font-size: 50px;
+    margin-top: 80px;
+    margin-bottom: -150px;
+    color: yellow;
+}
+
+#notes-container{
+    margin-bottom: 30px;
+    margin-top: 200px;
+}
+
+button{
+  appearance: button;
+  background-color: #1899D6;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: din-round,sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  line-height: 20px;
+  margin: 0;
+  outline: none;
+  overflow: visible;
+  padding: 13px 16px;
+  text-align: center;
+  text-transform: uppercase;
+  touch-action: manipulation;
+  transform: translateZ(0);
+  transition: filter .2s;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: auto;
+  margin-right: 20px;
+}
+
+button:after {
+  background-clip: padding-box;
+  background-color: #1CB0F6;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  bottom: -4px;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: -1;
+}
+
+button:main,button:focus {
+  user-select: auto;
+}
+
+button:hover:not(:disabled) {
+  filter: brightness(1.1);
+  -webkit-filter: brightness(1.1);
+}
+
+button:disabled {
+  cursor: auto;
+}
+
+button:active {
+  border-width: 4px 0 0;
+  background: none;
+}
+body {
+  justify-items: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(60deg, #e3d4bf 0%, #b8a89e 100%); /* Updated background color */
+  height: auto;
+  font-family: 'Poppins', sans-serif;
+  display: grid;
+}
+
+#notes-container {
+  background-color: #f8f4e6; /* Old book page color */
+  width: auto;
+  padding: 20px;
+  display: grid;
+  gap: 10px; 
+  margin: 10px;
+  margin-bottom: 200px;
+}
+
+.note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  font-family: 'ome_bhatkhande_hindi';
+  font-size: 3vw; 
+  color: rgb(48, 47, 47);
+  margin-bottom: 80px; 
+}
+
+.note.active {
+  color: green;
+}
+
+
+h1 {
+  font-size: 50px;
+  margin-top: 80px;
+  margin-bottom: 20px; 
+  color: #6d4c41; 
+}
+.note:nth-child(4n) {
+  border-right: 4px solid #6d4c41; 
+
+}
+
+.custom-file-upload {
+  border: 2px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  background-color: #f7f7f7;
+  color: #555;
+  transition: background-color 0.3s;
+}
+
+.custom-file-upload:hover {
+  background-color: #e0e0e0;
+}
+
+/* Optional: If you want to use Font Awesome for the upload icon */
+.custom-file-upload i {
+  margin-right: 5px;
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    margin: 0;
+  }
+  #notes-container {
+    width: 90vw;
+    padding: 20px;
+    margin: 0 auto;
+  }
+}
+
+/* Note Container Styling */
+#notes-container {
+  background-color: #f8f4e6;
+  border-radius: 10px;
+
+}
+
+/* Button Styling */
+button {
+  margin-right: 10px;
+  font-size: 16px;
+  padding: 12px 20px;
+}
+
+/* File Input Styling */
+.custom-file-upload {
+  margin-top: 20px;
+  display: inline-block;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 2px solid #1899d6;
+  border-radius: 5px;
+  color: #1899d6;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.custom-file-upload:hover {
+  background-color: #1899d6;
+  color: #fff;
+}
+
+.custom-file-upload input[type="file"] {
+  display: none;
+}
+
+table.composition {
+  border: none;
+  width: 100%; /* Ensure the table spans the full width of its container */
+}
+
+table.composition td {
+  width: 20%;
+  border: none;
+  border-right: 1px solid black;
+  padding: 5px;
+  font-size: 25px;
+}
+
+table.composition td:last-child {
+  border-right: none;
+}
+
+table.composition.bhatkhande-hindi td > code {
+  white-space: pre;
+  font-family: 'ome_bhatkhande_hindi';
+}

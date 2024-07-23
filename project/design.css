@@ -1,0 +1,112 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* background-color: #800060;; */
+}
+
+body {
+  /* Set background image */
+  background-image: url("bg2.jpg");
+  /* Apply background filtering */
+  filter: brightness(70%) contrast(220%);
+  /* Center and cover the background image */
+  background-position: center;
+  background-size: cover;
+  /* Ensure content is above the background */
+  position: relative;
+  /* Make the background slightly opaque */
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.5
+  ); /* Adjust the last value (alpha) as needed */
+}
+/* .background-img{
+  filter: brightness(70%) contrast(220%);
+  background-repeat: no-repeat;
+  width:  100%;
+  height: auto;
+} */
+.list {
+  
+}
+
+.search {
+  margin-top: 2rem;
+  text-transform: uppercase;
+  color: rgb(252, 247, 247);
+  /* letter-spacing: 5px; */
+  font-size: 3em;
+  animation: moveLeft 1.5s ease-in;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.first-letter {
+  color: #ebb224;
+  font-size: 5rem;
+}
+.link-results {
+  margin-top:  4rem;
+  margin: 2rem auto; /* Center horizontally */
+  width: 55%; /* Adjust width as needed */
+  padding: 10px;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  list-style-type: none;
+  border: 5px solid #ccc;
+  /* background-color: white; */
+  /* background-color: #fff; */
+  color: rgb(255, 255, 255);
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); /* Shadow effect */
+  outline: none;
+  /* letter-spacing: 5px; */
+  font-size: 1em;
+  animation: moveRight 1.5s ease-in;
+  text-shadow: 0 0 5px white;
+  text-decoration: none;
+}
+.link-results li {
+  margin-bottom: 1.5rem; /* Add gap between links */
+  color: rgb(250, 250, 250);
+}
+
+.link-results a {
+  text-decoration: none; /* Remove underline from links */
+  font-size: 1.4rem;
+}
+.link-results a:hover {
+  font-size: 1.5rem;
+  transition: .3s;
+}
+
+
+@keyframes moveLeft {
+  0% {
+    opacity: 0;
+    transform: translatex(-100px);
+  }
+  80% {
+    transform: translatex(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translatex(0);
+  }
+}
+
+@keyframes moveRight {
+  0% {
+    opacity: 0;
+    transform: translatex(100px);
+  }
+  80% {
+    transform: translatex(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translatex(0);
+  }
+}

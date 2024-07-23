@@ -1,0 +1,61 @@
+xquery version "1.0";
+declare namespace u="http://niem.gov/niem/universal/1.0";
+
+let $start := xs:integer(request:get-parameter("start", "1"))
+let $num := xs:integer(request:get-parameter("num", "5"))
+let $query-base := request:get-url()
+
+return
+<html>
+   <title>Contacts</title> 
+   <body>
+      <h1>Contacts</h1>
+      <table border="1">
+         <thead>
+            <tr>
+               <th>ID</th>
+               <th>Last Name</th>
+               <th>First</th>
+               <th>Street</th>
+               <th>City</th>
+               <th>State</th>
+               <th>Zip</th>
+               <th>EMail</th>
+               <th>Phone</th>
+               <th colspan="2">Function</th>
+            </tr>
+          </thead>
+      <tbody>
+      {
+      for $person in subsequence(collection('/db/contacts/data/')//Person, $start, $num)
+        let $pid := $person/id
+        let $lname := $person/u:PersonSurName/text()
+        let $fname := $person/u:PersonGivenName/text()
+        let $street := $person/u:StreetFullText/text()
+        let $city := $person/u:LocationCityName/text()
+        let $state := $person/u:LocationStateName/text()
+        let $zip := $person/u:LocationPostalCodeID/text()
+        let $email := $person/u:ContactEmailID/text()
+        let $phone := $person/u:TelephoneNumberFullID/text()
+        order by $lname, $fname
+        return
+        <tr>
+           <td>{$pid}</td>
+           <td>{$lname}</td>
+           <td>{$fname}</td>
+           <td>{$street}</td>
+           <td>{$city}</td>
+           <td>{$state}</td>
+           <td>{$zip}</td>
+           <td>{$email}</td>
+           <td>{$phone}</td>
+        </tr>
+      }
+      </tbody>
+    </table>
+    <input type="button"
+       onClick="parent.location='{$query-base}?start={$start - $num}&amp;num={$num}'" value="&lt; Previous"/>
+    <input type="button"
+       onClick="parent.location='{$query-base}?start={$start + $num}&amp;num={$num}'" value="Next &gt;"/>
+  </body>
+</html>

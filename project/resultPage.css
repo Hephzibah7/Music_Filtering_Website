@@ -1,0 +1,23 @@
+#result_block {
+	margin: 50px;
+	font-family: Arial, Helvetica, sans-serif;
+	padding-bottom: 10px;
+}
+
+.result_title {
+	padding: 15px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	color: blue;
+}
+
+.result_raag {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	padding-left: 15px;
+}
+
+#result {
+	border-bottom: 1px dotted black;
+	padding-bottom: 5px;
+}

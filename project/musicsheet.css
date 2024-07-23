@@ -1,0 +1,18 @@
+.musicsheet {
+	display: table;
+	padding: 10px;
+	border: thin dotted #7e7e7e;
+	background-color: #cb6;
+	border-radius: 10px;
+	font-size: 15px;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+td {
+	border-right: 1px solid black;
+	border-left: 1px solid black;	
+	padding: 10px;
+}
