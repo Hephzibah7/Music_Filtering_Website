@@ -68,6 +68,7 @@
 </head>
 <body>
 	<h3>Search in Bhatkhande Dataset</h3>
+	
   <form method="get" action="search.php">
 	<div class="tableRow">
 		<p>
@@ -109,10 +110,12 @@
 	 
 	// Query to get the total results 
 	$query = build_query($user_search);
-	$result = $session->query($query) or die("Error");
 	
-	$queryArray = iterator_to_array($result) or die("Error");
+	$result = $session->query($query);
+	
+	$queryArray = iterator_to_array($result) ;
 	$total = count($queryArray);
+	echo $total;
 	$num_pages = ceil($total / $results_per_page);
 	
 	$suffix = "for \$filtered at \$count in subsequence(\$total_result, " . $skip + 1 . ", " . $results_per_page . ") return \$filtered";
@@ -156,46 +159,227 @@
 	}
 
 	$session->close();
+    function test_input($data)
+    {
+        $data = trim($data);
+        //$data = stripslashes($data);
+        //$data = htmlspecialchars($data);
+        return $data;
+    }
 
+    function splitOnAnd($string, $conjunctions)
+    {
 
-	// This function builds a search query from the search keywords
-	function build_query($user_search) {
-		require_once('musicvars.php');
-		$components = explode(" ", $user_search);
-		$query_str = "";
-		
-		if(in_array($components[0], $attribute_set) && in_array($components[1], $operator_set)) {
-			$attribute = $components[0];
-			$operator = $components[1];
-			$value = $components[2];
-			$path = "";
-			
-			//$value = str_replace("'", "", $value);
-			$j = 0;
-			$path_values = array_values($paths);
-			
+        $array = explode(" and ", $string); // returns an array of queries that were separated by and in $input
+        array_push($conjunctions, "and");
+        return $array;
+    }
+    function formPaths($paths, $attributes)
+    {
+        $attr_path = [];
+        $path_values = array_values($paths);
+        for ($i = 0; $i < sizeof($attributes); ++$i) {
+            $j = 0;
             while ($j < sizeof($path_values)) {
-                if (in_array($attribute, $path_values[$j])) {
-                    $path = array_search($path_values[$j], $paths);
+                if (in_array($attributes[$i], $path_values[$j])) {
+                    array_push($attr_path, array_search($path_values[$j], $paths));
                     break;
                 }
                 ++$j;
             }
+        }
+        return $attr_path;
+    }
+
+
+	// This function builds a search query from the search keywords
+	function build_query($user_search) {
+		try {
+	
+				$input = test_input($user_search);
+	
+				// $attribute_set = ["TITLE", "RAAG_NAME", "THAAT", "NO_OF_LINES", "MAATRA", "TAAL", "YEAR", "TAAL_NAME"];
+				$attribute_set = [
+					"TITLE",
+					"COMPOSER",
+					"NOTATION-SYSTEM",
+					"YEAR",
+					"GENRE",
+					"ADDITIONAL",
+					"TAAL_NAME",
+					"BIBHAGA",
+					"MAATRA",
+					"AVARTANA",
+					"BEAT_PATTERN",
+					"ALTERNATE_BEAT_PATTERN",
+					"TAALI_COUNT",
+					"KHAALI_COUNT",
+					"TAALI_INDEX",
+					"KHAALI_INDEX",
+					"RAAG_NAME",
+					"THAAT",
+					"AROHANA",
+					"AVAROHANA",
+					"VADI",
+					"SAMVADI",
+					"JAATI",
+					"PAKAD",
+					"NO_OF_LINES",
+					"TOTAL_LINES",
+					"LINES"
+				];
+				$conjunction_set = ["and", "or"];
+				$operator_set = ["STARTS_WITH", "=", "!=", ">", "<", "ENDS_WITH"];
+	
+				$attributes = [];
+				$operators = [];
+				$conjunctions = [];
+				$values = []; // this will store the values of the attributes on which the operation will be performed
+	
+	
+				// STEP 1: EXTRACT ALL VALUES WITHIN QUOTES FROM INPUT STR, REPLACE VALUES WITH NULL STR
+				$i = 0;
+				while ($i < strlen($input)) {
+	
+					$i = strpos($input, "\""); // starting " index 
+					if (!$i) {
+						break;
+					} else {
+						$j = strpos($input, "\"", $i + 1); // ending " index
+						$value = substr($input, $i + 1, $j - $i - 1); // value str b/w "..."
+	
+						if (is_numeric($value)) {
+							array_push($values, number_format($value));
+						} else {
+							array_push($values, $value);
+						}
+						$input = str_replace("\"{$value}\"", "", $input); // replacing the stored "value" with null in the input str
+					}
+				}
+	
+	
+				// output:
+				// values = [ami chini go chini, 15]
+				// input => title = "" and maatra > ""
+	
+	
+	
+				// STEP 2: BREAK STRING ON AND   
+				array_push($conjunctions, "and");
+				$queries = splitOnAnd($input, $conjunctions);
+	
+	
+				// STEP 3: GET THE ATTRIBUTES AND OPERATORS FROM EACH $queries[i]
+				// 1. separate by space, put in array
+				foreach ($queries as $q) {
+					$input_terms = explode(" ", $q);
+					// input_terms = [title, =] or [maatra, >]
+					foreach ($input_terms as $term) {
+						if (in_array($term, $attribute_set)) {
+							// $i = array_search($term, $input_terms);
+	
+							array_push($attributes, $term);
+						} elseif (in_array($term, $operator_set)) {
+							array_push($operators, $term);
+						}
+					}
+				}
+				// result => attributes = [title, maatra], operators = [=, >], values = [chini go chini, 15], conjunctions = [and]
+	
+	
+				// STEP 4: FORMING THE XQUERY
+				// 4.1: form xpaths for each attribute to be searched           
+				$paths = array(
+					"INFO" => ["TITLE", "YEAR", "AUTHOR", "LYRIC_LANGUAGE", "NOTATION_SYSTEM", "NOTE_FONT_NAME", "LYRIC_FONT_NAME", "COMPOSITION_YEAR", "GENRE"],
+					"TAAL" => ["TAAL_NAME", "BIBHAGA", "MAATRA", "AVARTANA", "BEAT_PATTERN", "TAALI_COUNT", "KHAALI_COUNT", "TAALI_INDEX", "KHAALI_INDEX"],
+					"RAAG" => ["RAAG_NAME", "THAAT", "AROHANA", "AVAROHANA", "VADI", "SAMVADI", "JAATI", "PAKAD"]
+				);
+	
+				$xpaths = formPaths($paths, $attributes);
+				// xpaths = [info, taal]
+	
+	
+				// 4.2: forming the xquery using attributes[], operators[], conjunctions[], values[]
+				// 4.2.1: form all the where clauses depending on sizeof(attributes)
+				$where_clauses = "";
+				$i = $j = 0;
+	
+				if (sizeof($conjunctions) % sizeof($attributes) == 1) {
+					for ($i = 0; $i < sizeof($attributes); ++$i) {
+						$clause = "";
+						if (is_numeric($values[$i])) {
+							$clause = "\$song/{$xpaths[$i]}/{$attributes[$i]} {$operators[$i]} {$values[$i]}"; // num
+						} else {
+							$clause = "\$song/{$xpaths[$i]}/{$attributes[$i]}/text() {$operators[$i]} \"{$values[$i]}\""; // str
+						}
+	
+						if ($i == 0) {
+							$where_clauses = $clause . " and ";
+						} elseif ($i < sizeof($conjunctions)) {
+							$where_clauses .= $clause . " and ";
+						} else {
+							$where_clauses .= $clause;
+						}
+					}
+				} else {
+					echo "invalid search input";
+				}
+	
+			   
+				$query_str = "for \$song in collection(\"musics\")/swarlipi
+					  let \$title := \$song/INFO / TITLE / text ()
+					  let \$taal := \$song/TAAL/TAAL_NAME/ text ()
+					  let \$raag := \$song/RAAG/RAAG_NAME/ text ()
+					  let \$sheet := \$song/SHEET/LINES 
+					where {$where_clauses} 
+					return (\$title, \$sheet)";
+	 
+				return $query_str;
 			
-			$clause = "\$song/{$path}/{$attribute}/text() {$operator} \"{$value}\"";
-			
-			$query_str = "for \$song in collection(\"musics\")/swarlipi
-                  let \$title := \$song/INFO / TITLE / text ()
-                  let \$taal := \$song/TAAL/TAAL_NAME/ text ()
-                  let \$raag := \$song/RAAG/RAAG_NAME/ text ()
-                  let \$sheet := \$song/SHEET/LINES 
-                where {$clause} 
-                return (\$title, \$sheet)";
-			
+		} catch (BaseXException $e) {
+			// print exception
+			print $e->getMessage();
 		}
+	
 		
-		return $query_str;
 	}
+		// echo $user_search;
+		// require_once('musicvars.php');
+		// $components = explode(" ", $user_search);
+		// $query_str = "";
+		
+		// if(in_array($components[0], $attribute_set) && in_array($components[1], $operator_set)) {
+		// 	$attribute = $components[0];
+		// 	$operator = $components[1];
+		// 	$value = $components[2];
+		// 	$path = "";
+			
+		// 	//$value = str_replace("'", "", $value);
+		// 	$j = 0;
+		// 	$path_values = array_values($paths);
+			
+        //     while ($j < sizeof($path_values)) {
+        //         if (in_array($attribute, $path_values[$j])) {
+        //             $path = array_search($path_values[$j], $paths);
+        //             break;
+        //         }
+        //         ++$j;
+        //     }
+			
+		// 	$clause = "\$song/{$path}/{$attribute}/text() {$operator} \"{$value}\"";
+			
+		// 	$query_str = "for \$song in collection(\"musics\")/swarlipi
+        //           let \$title := \$song/INFO / TITLE / text ()
+        //           let \$taal := \$song/TAAL/TAAL_NAME/ text ()
+        //           let \$raag := \$song/RAAG/RAAG_NAME/ text ()
+        //           let \$sheet := \$song/SHEET/LINES 
+        //         where {$clause} 
+        //         return (\$title, \$sheet)";
+			
+		// }
+		
+		// return $query_str;
+	
 	
 	// This function builds navigational page links based on the current page and the number of pages
 	function generate_page_links($user_search, $cur_page, $num_pages) {
